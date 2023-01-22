@@ -24,14 +24,19 @@ import sqlite3
 
 con = sqlite3.connect("../netflix.db")
 cur = con.cursor()
-sqlite_query = ("")  # TODO измените код запроса
+sqlite_query = """SELECT title, MAX(release_year) AS total_year
+FROM netflix
+GROUP BY release_year
+ORDER BY total_year DESC
+LIMIT 2
+"""
 cur.execute(sqlite_query)
 executed_query = cur.fetchall()
 
 # TODO Результат запроса сохраните в переменной result
 # для последующей выдачи в требуемом формате
 
-result = ""
+result = executed_query[0][0]
 
 if __name__ == '__main__':
     print(result)
